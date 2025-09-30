@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head><title>Search Engine</title></head>
+<body>
+<form id = "search_form" action = "/lucky" method = "get">
+    <input type="text" id="input" name = "q" value = ""/>
+    <button type = "button" value = "Search" onclick="getUrls()">Search</button>
+    <button type = "submit" value="I'm feeling lucky">I'm feeling lucky</button>
+</form>
+<ul id="urls"></ul>
+<script>
+    async function getUrls() {
+      try {
+      const param = document.getElementById('input').value;
+      const url = `http://localhost:8080/search?q=${param}`
+      console.log(url);
+        // Fetch JSON data from an HTTP API
+        const response = await fetch(url);
+
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        console.log("response received");
+
+        // Parse the JSON data
+        const data = await response.json();
+        console.log("data");
+        console.log(data);
+
+        // Get the ul element where the list will be added
+        const urlList = document.getElementById('urls');
+        urlList.innerHTML = ''; // Clear previous results
+
+        // Loop through the array and add each item to the list
+        data.forEach(item => {
+          const newUrl = document.createElement('li');
+          const link = document.createElement('a');
+          link.setAttribute('href', item)
+          link.innerHTML = item;
+          //link.target = "_blank"; // Opens the link in a new tab
+
+          // Append the link to the list item
+          newUrl.appendChild(link);
+          urlList.appendChild(newUrl);
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+</script>
+</body>
+</html>

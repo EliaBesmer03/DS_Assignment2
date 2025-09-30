@@ -1,0 +1,53 @@
+openapi: 3.0.1
+info:
+  title: Search Engine API
+  version: "1"
+
+paths:
+  /search:
+    get:
+      summary: Get search results from the search engine
+      parameters:
+        - in: query
+          name: q
+          required: true
+          description: The keyword to look for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlArray'
+
+  /lucky:
+    get:
+      summary: Get best page
+      parameters:
+        - in: query
+          name: q
+          required: true
+          description: The keyword to search for
+          schema:
+            type: string
+      responses:
+        '302':
+          description: Redirection towards page
+          headers:
+            Location:
+              description: The URL where to find the Web page
+              schema:
+                type: string
+                format: uri
+        '404':
+          description: No appropriate page has been found
+
+components:
+  schemas:
+    UrlArray:
+      type: array
+      items:
+        type: string
+        format: uri
