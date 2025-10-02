@@ -2,12 +2,9 @@ package com.example.searchengine;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 
-@Component
+
 @ConfigurationProperties
-@Primary
 public class SearchEngineProperties {
 
     @Value("${crawl}")
