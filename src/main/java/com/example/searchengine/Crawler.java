@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,31 @@ public abstract class Crawler {
         List<String> hyperlinks = new ArrayList<>();
         List<List<String>> returnList = new ArrayList<>();
         String html = "";//TODO: read HTML page
+        OkHttpClient client = new OkHttpClient();
+
+
+        Request request = new Request.Builder().url(urlString).build();
+        try (Response response = client.newCall(request).execute()) {
+            html = response.body().string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         try {
-            Document d; //TODO: get from HTML page
-            Elements elements; //TODO: initialize elements based on the webpage at the given url.
+            Document d = Jsoup.parse(html); //TODO: get from HTML page
+
+
+            Elements elements = d.select("p"); //TODO: initialize elements based on the webpage at the given url.
+            for (Element element : elements) {
+                keywords.add(element.text());
+            }
             //TODO : Use elements to put the keywords in the webpage in the list keywords.
             //TODO : Use elements to the hyperlinks to other pages in the environment in the list hyperlinks.
+            Elements links = d.select("a[href]");
+            for (Element link : links) {
+                hyperlinks.add(link.attr("href"));
+            }
+
         } catch (Exception e){
             logger.error(e.getMessage());
         }

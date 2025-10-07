@@ -52,4 +52,26 @@ public class SearchEngine {
 		}
 	}
 
+    @GetMapping("/search")
+    public List<String> search(@RequestParam("q") String keyword) {
+        logger.info("Received search request for keyword: {}", keyword);
+        return searcher.search(keyword, invertedIndexFileName);
+    }
+
+    @GetMapping("/lucky")
+    public void lucky(@RequestParam("q") String keyword, javax.servlet.http.HttpServletResponse response) {
+        logger.info("Received lucky request for keyword: {}", keyword);
+        List<String> results = searcher.search(keyword, invertedIndexFileName);
+        if (results.isEmpty()) {
+            response.setStatus(404);
+            return;
+        }
+        try {
+            response.setStatus(302);
+            response.setHeader("Location", results.get(0));
+        } catch (Exception e) {
+            logger.error("Error while redirecting: {}", e.getMessage());
+        }
+    }
+
 }
