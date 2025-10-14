@@ -2,8 +2,11 @@ Assignment 2
 ------------
 
 # Team Members
+Elia Besmer
+Leon Schwendener
 
 # GitHub link to your (forked) repository
+https://github.com/EliaBesmer03/DS_Assignment2
 
 ...
 
@@ -11,7 +14,7 @@ Assignment 2
 
 1. Indicate the time necessary for the SimpleCrawler to work.
 
-Ans:
+Ans: Crawl completed in 122613 ms
 
 
 
@@ -42,10 +45,11 @@ No mechanism for obtaining the token was implemented, as stated in the task desc
 
 1.  Indicate the time necessary for the MultithreadCrawler to work.
 
-Ans:
+Ans: Crawl completed in 11672 ms
+
 
 2. Indicate the ratio of the time for the SimpleCrawler divided by the time for the MultithreadCrawler to get the increase in speed.
 
-Ans:
+Ans: 122613 / 11672 ≈ 10.5x faster
 
 

@@ -56,6 +56,7 @@ public class MultithreadCrawler extends Crawler {
         }
 
         long duration = System.currentTimeMillis() - startTime;
+        System.out.println("Crawl completed in " + duration + " ms");
         logger.info("duration multithread crawler: {} ms", duration);
     }
 

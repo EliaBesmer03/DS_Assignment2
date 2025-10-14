@@ -28,6 +28,7 @@ public class SimpleCrawler extends Crawler {
             fileWriter.flush();
             fileWriter.close();
             long duration = System.currentTimeMillis() - startTime; //TODO: Update value
+            System.out.println("Crawl completed in " + duration + " ms");
             logger.info("duration simple crawler: {}", duration);
         } catch (Exception e){
             logger.error(e.getMessage());
